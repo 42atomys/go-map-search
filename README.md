@@ -192,22 +192,41 @@ Context (pre-allocated):
 Results on a typical development machine:
 
 ```
-BenchmarkQuickSearch-8           	   10000	    108762 ns/op	     192 B/op	       1 allocs/op
-BenchmarkSearchEngine-8          	   50000	     28453 ns/op	     192 B/op	       1 allocs/op
-BenchmarkSearchEngineZeroAlloc-8 	  100000	     15234 ns/op	       0 B/op	       0 allocs/op
+goos: darwin
+goarch: arm64
+pkg: github.com/42atomys/go-map-search
+cpu: Apple M4 Max
+BenchmarkQuickSearch-16         	   10000	    109318 ns/op	     424 B/op	       1 allocs/op
+BenchmarkSearchEngine-16        	   10000	    107244 ns/op	     423 B/op	       1 allocs/op
+BenchmarkSearchScaling/QuickSearch_100-16         	   61461	     19901 ns/op	     209 B/op	       1 allocs/op
+BenchmarkSearchScaling/SearchEngine_100-16        	   58168	     19968 ns/op	     209 B/op	       1 allocs/op
+BenchmarkSearchScaling/QuickSearch_500-16         	   10000	    105037 ns/op	     216 B/op	       1 allocs/op
+BenchmarkSearchScaling/SearchEngine_500-16        	   10000	    106656 ns/op	     208 B/op	       1 allocs/op
+BenchmarkSearchScaling/QuickSearch_1000-16        	    5458	    216293 ns/op	     223 B/op	       1 allocs/op
+BenchmarkSearchScaling/SearchEngine_1000-16       	    5596	    217876 ns/op	     221 B/op	       1 allocs/op
+BenchmarkSearchTypes/unicode-16                   	   26565	     45565 ns/op	     210 B/op	       1 allocs/op
+BenchmarkSearchTypes/exact-16                     	   14396	     94270 ns/op	     213 B/op	       1 allocs/op
+BenchmarkSearchTypes/prefix-16                    	   19377	     62274 ns/op	     212 B/op	       1 allocs/op
+BenchmarkSearchTypes/multi-16                     	    6120	    199759 ns/op	     220 B/op	       1 allocs/op
+BenchmarkSearchTypes/substring-16                 	   18514	     64927 ns/op	     212 B/op	       1 allocs/op
+BenchmarkUltraLowAlloc-16                         	    4974	    222587 ns/op	     208 B/op	       1 allocs/op
+BenchmarkMemoryEfficiency/Size_100-16             	    9770	    123785 ns/op	    1152 B/op	       6 allocs/op
+BenchmarkMemoryEfficiency/Size_500-16             	    1778	    699201 ns/op	    1248 B/op	       6 allocs/op
+BenchmarkMemoryEfficiency/Size_1000-16            	     872	   1409429 ns/op	    1248 B/op	       6 allocs/op
+BenchmarkMemoryEfficiency/Size_2000-16            	    2618	    437698 ns/op	    1248 B/op	       6 allocs/op
 
-Dataset sizes:
-- Small (100 docs):   ~10μs per search
-- Medium (500 docs):  ~30μs per search  
-- Large (1000 docs):  ~100μs per search
+Result : ~0.2 μs/doc
 ```
 
 ### Real-world Performance
 
-In production environments with 10,000 documents:
-- **Throughput**: >100,000 searches/second
+In production environments with 10,000 documents ( 10,000 × 0.2 μs = 2 ms/search)
+- **Throughput** : 1 second ÷ 2.0 ms = ~500 search/s
 - **Latency**: p50: 15μs, p99: 150μs
 - **Memory overhead**: ~5MB for index
+
+> [!NOTE]
+> **Note**: The complexity appears quasi-linear (~0.20-0.21 μs/doc), enabling easy performance estimation for other dataset sizes.
 
 ## 📚 API Reference
 
