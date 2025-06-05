@@ -189,15 +189,15 @@ Context (pre-allocated):
 
 ## 📊 Benchmarks
 
-Results on a typical development machine:
+Results on my development machine (benchmark are run in safe mode so allocation are for the result slice only)
 
 ```
 goos: darwin
 goarch: arm64
 pkg: github.com/42atomys/go-map-search
 cpu: Apple M4 Max
-BenchmarkQuickSearch-16         	   10000	    109318 ns/op	     424 B/op	       1 allocs/op
-BenchmarkSearchEngine-16        	   10000	    107244 ns/op	     423 B/op	       1 allocs/op
+BenchmarkQuickSearch-16         	                     10000	    109318 ns/op	     424 B/op	       1 allocs/op
+BenchmarkSearchEngine-16        	                     10000	    107244 ns/op	     423 B/op	       1 allocs/op
 BenchmarkSearchScaling/QuickSearch_100-16         	   61461	     19901 ns/op	     209 B/op	       1 allocs/op
 BenchmarkSearchScaling/SearchEngine_100-16        	   58168	     19968 ns/op	     209 B/op	       1 allocs/op
 BenchmarkSearchScaling/QuickSearch_500-16         	   10000	    105037 ns/op	     216 B/op	       1 allocs/op
